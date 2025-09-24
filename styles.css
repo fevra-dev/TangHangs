@@ -1,0 +1,942 @@
+/* ===================================
+   Tang Collection - Simplified Landing Page
+   Clean, centered, non-scrollable design
+   =================================== */
+
+/* ===============================
+   CSS CUSTOM PROPERTIES (VARIABLES)
+   =============================== */
+:root {
+  /* Color Palette */
+  --primary-bg: #00ffea;           /* Main background color */
+  --primary-text: #000000;        /* Primary text color (black for contrast) */
+  --secondary-text: #333333;      /* Secondary text color */
+  --accent-color: #ffffff;        /* Accent color for highlights */
+  --button-bg: rgba(255, 255, 255, 0.9); /* Button background */
+  --button-hover: rgba(255, 255, 255, 1); /* Button hover background */
+  --shadow-color: rgba(0, 0, 0, 0.15);    /* Shadow color */
+  
+  /* Typography - Using Impact font for all text */
+  --font-body: 'Impact', Arial Black, Arial, sans-serif;
+  --font-title: 'Impact', Arial Black, Arial, sans-serif;
+  
+  /* Spacing System */
+  --spacing-xs: 0.5rem;   /* 8px */
+  --spacing-sm: 1rem;     /* 16px */
+  --spacing-md: 1.5rem;   /* 24px */
+  --spacing-lg: 2rem;     /* 32px */
+  --spacing-xl: 3rem;     /* 48px */
+  --spacing-2xl: 4rem;    /* 64px */
+  
+  /* Button Properties */
+  --button-size: 120px;     /* Circular button size for desktop */
+  --button-size-mobile: 100px; /* Circular button size for mobile */
+  --border-radius: 50%;     /* Perfect circle */
+  --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  
+  /* Shadows */
+  --shadow-sm: 0 4px 12px var(--shadow-color);
+  --shadow-md: 0 8px 24px var(--shadow-color);
+  --shadow-lg: 0 12px 36px var(--shadow-color);
+}
+
+/* ===============================
+   RESET AND BASE STYLES
+   =============================== */
+
+/* Modern CSS Reset */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  height: 100%;
+  overflow: hidden; /* Prevent scrolling */
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--primary-bg);
+  color: var(--primary-text);
+  line-height: 1.6;
+  height: 100vh;
+  overflow: hidden; /* Prevent scrolling */
+  position: relative;
+  
+  /* Custom cursor implementation */
+  cursor: url('cursor_small.png'), auto;
+}
+
+/* Animated Border Shadow */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  z-index: 1000;
+  
+  /* Animated moving shadow around the border */
+  box-shadow: 
+    inset 0 0 30px rgba(0, 0, 0, 0.15),           /* Inner glow */
+    inset 0 0 60px rgba(0, 0, 0, 0.1),            /* Deeper inner glow */
+    inset 0 -40px 80px rgba(0, 0, 0, 0.25),       /* Bottom heavy shadow */
+    inset 20px 0 40px rgba(0, 0, 0, 0.08),        /* Right edge */
+    inset -20px 0 40px rgba(0, 0, 0, 0.08),       /* Left edge */
+    inset 0 20px 40px rgba(0, 0, 0, 0.08);        /* Top edge */
+  
+  /* Subtle pulsing animation */
+  animation: borderShadowPulse 4s ease-in-out infinite;
+}
+
+/* Additional animated shadow layer for movement effect */
+body::after {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  z-index: 999;
+  
+  /* Moving shadow effect */
+  box-shadow: 
+    inset 0 0 50px rgba(0, 0, 0, 0.12),
+    inset 0 -60px 100px rgba(0, 0, 0, 0.2);       /* Enhanced bottom shadow */
+  
+  /* Slow rotation for moving effect */
+  animation: borderShadowMove 8s linear infinite;
+}
+
+/* ===============================
+   MAIN CONTAINER LAYOUT
+   =============================== */
+
+.main-container {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: var(--spacing-lg);
+  gap: var(--spacing-xl);
+}
+
+/* ===============================
+   BRAND SECTION
+   =============================== */
+
+.brand-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-sm);
+  margin-bottom: var(--spacing-md);
+}
+
+.brand-title {
+  font-family: var(--font-title);
+  font-size: 3.5rem;
+  font-weight: 700;
+  margin: 0;
+  text-shadow: 2px 2px 4px var(--shadow-color);
+}
+
+.brand-subtitle {
+  font-family: var(--font-body);
+  font-size: 1.5rem;
+  font-weight: 400;
+  opacity: 0.8;
+  margin: 0;
+}
+
+/* Banner image replacing title/subtitle */
+.brand-banner {
+  display: block;
+  width: min(70vw, 820px);
+  height: auto;
+  max-height: 28vh;
+  object-fit: contain;
+  margin: 0 auto var(--spacing-md) auto;
+}
+
+@media (max-width: 768px) {
+  .brand-banner {
+    width: min(86vw, 640px);
+    max-height: 22vh;
+    margin-bottom: var(--spacing-sm);
+  }
+}
+
+/* ===============================
+   CIRCULAR BUTTONS SECTION
+   =============================== */
+
+.links-section {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--spacing-lg);
+  justify-items: center;
+  align-items: center;
+  max-width: 300px;
+  width: 100%;
+}
+
+/* Circular Button Base Styles */
+.circular-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: var(--button-size);
+  height: var(--button-size);
+  background: var(--button-bg);
+  border-radius: var(--border-radius);
+  text-decoration: none;
+  color: var(--primary-text);
+  transition: var(--transition);
+  box-shadow: var(--shadow-sm);
+  position: relative;
+  overflow: hidden;
+  gap: var(--spacing-xs);
+  
+  /* Prevent text selection */
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+
+.circular-btn:hover,
+.circular-btn:focus {
+  transform: translateY(-4px) scale(1.05);
+  box-shadow: var(--shadow-lg);
+  background: var(--button-hover);
+  outline: none;
+}
+
+.circular-btn:active {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: var(--shadow-md);
+}
+
+/* Button Icon Styles */
+.btn-icon {
+  font-size: 2.5rem;
+  line-height: 1;
+  margin-bottom: 0.25rem;
+}
+
+/* ===============================
+   CUSTOM IMAGE BUTTONS (PNG → GIF on Hover)
+   Images ARE the buttons, no circular backgrounds
+   =============================== */
+
+/* Token Button - Image IS the button */
+.token-btn {
+  width: var(--button-size);
+  height: var(--button-size);
+  background-image: url('token.png') !important;
+  background-size: contain !important;
+  background-repeat: no-repeat !important;
+  background-position: center !important;
+  background-color: transparent !important;
+  border: none !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  transition: var(--transition);
+}
+
+.token-btn:hover,
+.token-btn:focus {
+  background-image: url('token.gif') !important;
+  background-color: transparent !important;
+  box-shadow: none !important;
+  transform: translateY(-4px) scale(1.05);
+}
+
+.token-btn:active {
+  transform: translateY(-2px) scale(1.02);
+}
+
+/* NFT Button - Image IS the button (using X.png/X.gif) */
+.nft-btn {
+  width: var(--button-size);
+  height: var(--button-size);
+  background-image: url('X.png') !important;
+  background-size: contain !important;
+  background-repeat: no-repeat !important;
+  background-position: center !important;
+  background-color: transparent !important;
+  border: none !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  transition: var(--transition);
+}
+
+.nft-btn:hover,
+.nft-btn:focus {
+  background-image: url('X.gif') !important;
+  background-color: transparent !important;
+  box-shadow: none !important;
+  transform: translateY(-4px) scale(1.05);
+}
+
+.nft-btn:active {
+  transform: translateY(-2px) scale(1.02);
+}
+
+/* Artist Button - Image IS the button */
+.artist-btn {
+  width: var(--button-size);
+  height: var(--button-size);
+  background-image: url('radio.png') !important;
+  background-size: contain !important;
+  background-repeat: no-repeat !important;
+  background-position: center !important;
+  background-color: transparent !important;
+  border: none !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  transition: var(--transition);
+}
+
+.artist-btn:hover,
+.artist-btn:focus {
+  background-image: url('radio.gif') !important;
+  background-color: transparent !important;
+  box-shadow: none !important;
+  transform: translateY(-4px) scale(1.05);
+}
+
+.artist-btn:active {
+  transform: translateY(-2px) scale(1.02);
+}
+
+/* Depot Button - Image IS the button */
+.depot-btn {
+  width: var(--button-size);
+  height: var(--button-size);
+  background-image: url('meme_depot.png') !important;
+  background-size: contain !important;
+  background-repeat: no-repeat !important;
+  background-position: center !important;
+  background-color: transparent !important;
+  border: none !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  transition: var(--transition);
+}
+
+.depot-btn:hover,
+.depot-btn:focus {
+  background-image: url('meme_depot.gif') !important;
+  background-color: transparent !important;
+  box-shadow: none !important;
+  transform: translateY(-4px) scale(1.05);
+}
+
+.depot-btn:active {
+  transform: translateY(-2px) scale(1.02);
+}
+
+/* Hide all icon divs and labels since images ARE the buttons */
+.btn-icon,
+.btn-label {
+  display: none !important;
+}
+
+/* Button Label Styles */
+.btn-label {
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  line-height: 1;
+}
+
+/* Individual Button Color Variations */
+.token-btn {
+  background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+  color: #000;
+}
+
+.token-btn:hover,
+.token-btn:focus {
+  background: linear-gradient(135deg, #FFE55C 0%, #FFB84D 100%);
+  color: #000;
+}
+
+.nft-btn {
+  background: linear-gradient(135deg, #FF6B6B 0%, #FF8E53 100%);
+  color: #fff;
+}
+
+.nft-btn:hover,
+.nft-btn:focus {
+  background: linear-gradient(135deg, #FF8A8A 0%, #FFA574 100%);
+  color: #fff;
+}
+
+.artist-btn {
+  background: linear-gradient(135deg, #9B59B6 0%, #8E44AD 100%);
+  color: #fff;
+}
+
+.artist-btn:hover,
+.artist-btn:focus {
+  background: linear-gradient(135deg, #AF7AC5 0%, #A569BD 100%);
+  color: #fff;
+}
+
+.depot-btn {
+  background: linear-gradient(135deg, #3498DB 0%, #2980B9 100%);
+  color: #fff;
+}
+
+.depot-btn:hover,
+.depot-btn:focus {
+  background: linear-gradient(135deg, #5DADE2 0%, #3498DB 100%);
+  color: #fff;
+}
+
+/* ===============================
+   FOOTER CREDIT
+   =============================== */
+
+.footer-credit {
+  margin-top: var(--spacing-lg);
+}
+
+.footer-credit p {
+  font-size: 0.875rem;
+  opacity: 0.6;
+  margin: 0;
+  font-weight: 400;
+}
+
+/* Loading overlay */
+#loading-overlay {
+  position: fixed;
+  inset: 0;
+  background: var(--primary-bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+  opacity: 1;
+  pointer-events: all;
+  transition: opacity 400ms ease;
+  
+  /* Apply the same animated border shadow as the main body */
+  box-shadow: 
+    inset 0 0 30px rgba(0, 0, 0, 0.15),           /* Inner glow */
+    inset 0 0 60px rgba(0, 0, 0, 0.1),            /* Deeper inner glow */
+    inset 0 -40px 80px rgba(0, 0, 0, 0.25),       /* Bottom heavy shadow */
+    inset 20px 0 40px rgba(0, 0, 0, 0.08),        /* Right edge */
+    inset -20px 0 40px rgba(0, 0, 0, 0.08),       /* Left edge */
+    inset 0 20px 40px rgba(0, 0, 0, 0.08);        /* Top edge */
+  
+  /* Subtle pulsing animation */
+  animation: borderShadowPulse 4s ease-in-out infinite;
+}
+
+#loading-overlay.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.loading-spinner {
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
+  object-position: center;
+}
+
+@media (max-width: 768px) {
+  .loading-spinner {
+    width: 100vw;
+    height: 100vh;
+    object-fit: contain;
+    object-position: center;
+    background-color: var(--primary-bg);
+  }
+}
+
+@media (max-width: 480px) {
+  .loading-spinner {
+    width: 100vw;
+    height: 100vh;
+    object-fit: contain;
+    object-position: center;
+    background-color: var(--primary-bg);
+  }
+}
+
+/* Landscape mobile orientation - ensure full coverage */
+@media (max-width: 768px) and (orientation: landscape) {
+  .loading-spinner {
+    object-fit: cover;
+    object-position: center;
+  }
+}
+
+/* ===============================
+   RESPONSIVE DESIGN
+   =============================== */
+
+/* Large Desktop */
+@media (min-width: 1200px) {
+  .brand-title {
+    font-size: 4rem;
+  }
+  
+  .brand-subtitle {
+    font-size: 1.75rem;
+  }
+  
+  .links-section {
+    max-width: 350px;
+    gap: var(--spacing-xl);
+  }
+  
+  :root {
+    --button-size: 140px;
+  }
+  
+  .btn-icon {
+    font-size: 3rem;
+  }
+  
+  
+  .btn-label {
+    font-size: 1rem;
+  }
+}
+
+/* Tablet (iPad) */
+@media (max-width: 768px) {
+  .main-container {
+    gap: var(--spacing-lg);
+    padding: var(--spacing-md);
+  }
+  
+  .brand-title {
+    font-size: 3rem;
+  }
+  
+  .brand-subtitle {
+    font-size: 1.25rem;
+  }
+  
+  .links-section {
+    max-width: 280px;
+    gap: var(--spacing-md);
+  }
+  
+  :root {
+    --button-size: 110px;
+  }
+  
+  .btn-icon {
+    font-size: 2.25rem;
+  }
+  
+  
+  .btn-label {
+    font-size: 0.8rem;
+  }
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+  .main-container {
+    gap: var(--spacing-md);
+    padding: var(--spacing-sm);
+  }
+  
+  .brand-title {
+    font-size: 2.5rem;
+  }
+  
+  .brand-subtitle {
+    font-size: 1.125rem;
+  }
+  
+  .links-section {
+    max-width: 240px;
+    gap: var(--spacing-sm);
+  }
+  
+  :root {
+    --button-size: var(--button-size-mobile);
+  }
+  
+  .btn-icon {
+    font-size: 2rem;
+  }
+  
+  
+  .btn-label {
+    font-size: 0.75rem;
+  }
+  
+  .footer-credit {
+    margin-top: var(--spacing-md);
+  }
+  
+  .footer-credit p {
+    font-size: 0.8rem;
+  }
+}
+
+/* Small Mobile */
+@media (max-width: 320px) {
+  .brand-title {
+    font-size: 2rem;
+  }
+  
+  .brand-subtitle {
+    font-size: 1rem;
+  }
+  
+  .links-section {
+    max-width: 200px;
+    gap: 1rem;
+  }
+  
+  :root {
+    --button-size: 90px;
+  }
+  
+  .btn-icon {
+    font-size: 1.75rem;
+  }
+  
+  
+  .btn-label {
+    font-size: 0.7rem;
+  }
+}
+
+/* ===============================
+   ACCESSIBILITY IMPROVEMENTS
+   =============================== */
+
+/* Focus styles for keyboard navigation */
+.circular-btn:focus {
+  outline: 3px solid var(--primary-text);
+  outline-offset: 4px;
+}
+
+/* Reduce motion for users who prefer it */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .circular-btn {
+    border: 2px solid var(--primary-text);
+  }
+  
+  .brand-title {
+    text-shadow: none;
+  }
+}
+
+/* ===============================
+   LOADING AND ANIMATION STATES
+   =============================== */
+
+/* Fade-in animation for initial load */
+.main-container {
+  animation: fadeInUp 0.8s ease-out;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Stagger animation for buttons */
+.circular-btn:nth-child(1) { animation-delay: 0.1s; }
+.circular-btn:nth-child(2) { animation-delay: 0.2s; }
+.circular-btn:nth-child(3) { animation-delay: 0.3s; }
+.circular-btn:nth-child(4) { animation-delay: 0.4s; }
+
+.circular-btn {
+  animation: fadeInScale 0.6s ease-out both;
+}
+
+@keyframes fadeInScale {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Border Shadow Animations */
+@keyframes borderShadowPulse {
+  0%, 100% {
+    box-shadow: 
+      inset 0 0 30px rgba(0, 0, 0, 0.15),
+      inset 0 0 60px rgba(0, 0, 0, 0.1),
+      inset 0 -40px 80px rgba(0, 0, 0, 0.25),
+      inset 20px 0 40px rgba(0, 0, 0, 0.08),
+      inset -20px 0 40px rgba(0, 0, 0, 0.08),
+      inset 0 20px 40px rgba(0, 0, 0, 0.08);
+  }
+  50% {
+    box-shadow: 
+      inset 0 0 40px rgba(0, 0, 0, 0.18),
+      inset 0 0 80px rgba(0, 0, 0, 0.12),
+      inset 0 -50px 100px rgba(0, 0, 0, 0.3),
+      inset 30px 0 50px rgba(0, 0, 0, 0.1),
+      inset -30px 0 50px rgba(0, 0, 0, 0.1),
+      inset 0 30px 50px rgba(0, 0, 0, 0.1);
+  }
+}
+
+@keyframes borderShadowMove {
+  0% {
+    box-shadow: 
+      inset 0 0 50px rgba(0, 0, 0, 0.12),
+      inset 0 -60px 100px rgba(0, 0, 0, 0.2);
+  }
+  25% {
+    box-shadow: 
+      inset 40px 0 50px rgba(0, 0, 0, 0.12),
+      inset 0 -60px 100px rgba(0, 0, 0, 0.2);
+  }
+  50% {
+    box-shadow: 
+      inset 0 40px 50px rgba(0, 0, 0, 0.12),
+      inset 0 -60px 100px rgba(0, 0, 0, 0.2);
+  }
+  75% {
+    box-shadow: 
+      inset -40px 0 50px rgba(0, 0, 0, 0.12),
+      inset 0 -60px 100px rgba(0, 0, 0, 0.2);
+  }
+  100% {
+    box-shadow: 
+      inset 0 0 50px rgba(0, 0, 0, 0.12),
+      inset 0 -60px 100px rgba(0, 0, 0, 0.2);
+  }
+}
+
+/* ===============================
+   PRINT STYLES
+   =============================== */
+
+@media print {
+  * {
+    background: transparent !important;
+    color: black !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+  }
+  
+  .circular-btn {
+    border: 2px solid black !important;
+  }
+  
+  .footer-credit {
+    position: fixed;
+    bottom: 0;
+  }
+}
+
+/* ===============================
+   RANDOM NFT BACKGROUND ELEMENTS
+   =============================== */
+
+.random-nft-bg {
+  position: fixed;
+  pointer-events: none;
+  z-index: -1;
+  opacity: 0;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: all 3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  will-change: transform, opacity;
+  transform: scale(0.85) translateY(30px);
+}
+
+.random-nft-bg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+/* Different sizes for variety */
+.random-nft-bg.size-small {
+  width: 80px;
+  height: 80px;
+}
+
+.random-nft-bg.size-medium {
+  width: 120px;
+  height: 120px;
+}
+
+.random-nft-bg.size-large {
+  width: 160px;
+  height: 160px;
+}
+
+/* Subtle floating animation */
+.random-nft-bg.floating {
+  animation: subtleFloat 8s ease-in-out infinite;
+}
+
+@keyframes subtleFloat {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  25% {
+    transform: translateY(-10px) rotate(1deg);
+  }
+  50% {
+    transform: translateY(-5px) rotate(-0.5deg);
+  }
+  75% {
+    transform: translateY(-15px) rotate(0.5deg);
+  }
+}
+
+/* Simplified smooth transitions for NFT backgrounds */
+.random-nft-bg.visible {
+  opacity: 0.2 !important;
+  transform: scale(1) translateY(0) rotate(0deg) !important;
+  animation: none !important;
+}
+
+.random-nft-bg.fade-out {
+  opacity: 0 !important;
+  transform: scale(0.8) translateY(-30px) rotate(-2deg) !important;
+  transition: all 15s ease-out !important;
+}
+
+/* Simplified smooth fade in - no conflicting animations */
+.random-nft-bg.fade-in {
+  animation: simpleSmoothFadeIn 3s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+@keyframes simpleSmoothFadeIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.9) translateY(20px);
+  }
+  100% {
+    opacity: 0.2;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* Very long and dramatic fade out animation - 15 seconds */
+@keyframes simpleSmoothFadeOut {
+  0% {
+    opacity: 0.2;
+    transform: scale(1) translateY(0) rotate(0deg);
+  }
+  10% {
+    opacity: 0.18;
+    transform: scale(0.98) translateY(-3px) rotate(-0.2deg);
+  }
+  20% {
+    opacity: 0.16;
+    transform: scale(0.96) translateY(-6px) rotate(-0.4deg);
+  }
+  30% {
+    opacity: 0.14;
+    transform: scale(0.94) translateY(-9px) rotate(-0.6deg);
+  }
+  40% {
+    opacity: 0.12;
+    transform: scale(0.92) translateY(-12px) rotate(-0.8deg);
+  }
+  50% {
+    opacity: 0.1;
+    transform: scale(0.9) translateY(-15px) rotate(-1deg);
+  }
+  60% {
+    opacity: 0.08;
+    transform: scale(0.88) translateY(-18px) rotate(-1.2deg);
+  }
+  70% {
+    opacity: 0.06;
+    transform: scale(0.86) translateY(-21px) rotate(-1.4deg);
+  }
+  80% {
+    opacity: 0.04;
+    transform: scale(0.84) translateY(-24px) rotate(-1.6deg);
+  }
+  90% {
+    opacity: 0.02;
+    transform: scale(0.82) translateY(-27px) rotate(-1.8deg);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.8) translateY(-30px) rotate(-2deg);
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .random-nft-bg.size-small {
+    width: 60px;
+    height: 60px;
+  }
+  
+  .random-nft-bg.size-medium {
+    width: 80px;
+    height: 80px;
+  }
+  
+  .random-nft-bg.size-large {
+    width: 100px;
+    height: 100px;
+  }
+}
+
+/* ===============================
+   DARK MODE SUPPORT (Future)
+   =============================== */
+
+@media (prefers-color-scheme: dark) {
+  /* 
+   * Future dark mode implementation
+   * Currently using light theme as specified
+   */
+}
+
+/* End of styles.css */

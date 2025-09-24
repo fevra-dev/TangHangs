@@ -1,0 +1,8 @@
+<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Tang NFT Collection Favicon -->
+  <rect width="32" height="32" rx="6" fill="#00ffea"/>
+  <circle cx="16" cy="16" r="8" fill="#000000"/>
+  <circle cx="16" cy="16" r="4" fill="#00ffea"/>
+  <rect x="12" y="8" width="8" height="2" rx="1" fill="#000000"/>
+  <rect x="12" y="22" width="8" height="2" rx="1" fill="#000000"/>
+</svg>

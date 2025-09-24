@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tang Collection</title>
+    <meta name="description" content="Tang Collection - Premium Memes & NFTs">
+    
+    <!-- Impact font is a system font, no need to load from Google Fonts -->
+    
+    <!-- Preload GIF animations to prevent flash on hover -->
+    <link rel="preload" href="token.gif" as="image">
+    <link rel="preload" href="X.gif" as="image">
+    <link rel="preload" href="radio.gif" as="image">
+    <link rel="preload" href="meme_depot.gif" as="image">
+    <link rel="preload" href="header.png" as="image">
+    <link rel="preload" href="loading2.gif" as="image">
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="styles.css">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+</head>
+<body>
+    <!-- Main Container - Centered Layout -->
+    <main class="main-container" role="main">
+        <!-- Brand/Title -->
+        <div class="brand-section">
+            <img src="header.png" alt="Dang Mang - Tangs, Hangs, and Mangs" class="brand-banner" />
+        </div>
+
+        <!-- Circular Link Buttons -->
+        <div class="links-section">
+            <!-- Token Button -->
+            <a href="https://x.com/MangTheTang" 
+               class="circular-btn token-btn" 
+               target="_blank" 
+               rel="noopener noreferrer"
+               aria-label="Visit Tang Token on Twitter">
+                <div class="btn-icon token-icon"></div>
+                <span class="btn-label">Token</span>
+            </a>
+
+            <!-- NFT Button -->
+            <a href="https://x.com/TangHangs" 
+               class="circular-btn nft-btn" 
+               target="_blank" 
+               rel="noopener noreferrer"
+               aria-label="Visit Tang NFTs on Twitter">
+                <div class="btn-icon nft-icon"></div>
+                <span class="btn-label">NFT</span>
+            </a>
+
+            <!-- Artist Button -->
+            <a href="https://x.com/0xRadi0" 
+               class="circular-btn artist-btn" 
+               target="_blank" 
+               rel="noopener noreferrer"
+               aria-label="Visit Artist 0xRadi0 on Twitter">
+                <div class="btn-icon radio-icon"></div>
+                <span class="btn-label">Artist</span>
+            </a>
+
+            <!-- Depot Button -->
+            <a href="https://memedepot.com/u/mang" 
+               class="circular-btn depot-btn" 
+               target="_blank" 
+               rel="noopener noreferrer"
+               aria-label="Visit Mang on Meme Depot">
+                <div class="btn-icon depot-icon"></div>
+                <span class="btn-label">Depot</span>
+            </a>
+        </div>
+
+    </main>
+
+    <!-- Loading Overlay -->
+    <div id="loading-overlay" aria-hidden="true">
+        <img src="loading2.gif" alt="Loading" class="loading-spinner" />
+    </div>
+
+    <!-- JavaScript -->
+    <script src="script.js"></script>
+</body>
+</html>
