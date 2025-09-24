@@ -357,7 +357,7 @@ const activeNFTImages = new Set();
 /**
  * Check if a position overlaps with existing NFTs (improved collision detection)
  */
-const checkCollision = (newPos, newSize, buffer = 100) => {
+const checkCollision = (newPos, newSize, buffer = 120) => {
   return activeNFTPositions.some(pos => {
     // Calculate actual element boundaries
     const element1 = {
@@ -425,19 +425,35 @@ const isInMainContentArea = (x, y, elementSize) => {
 };
 
 /**
+ * Check if a position is too close to existing NFTs (anti-clustering)
+ */
+const isTooCloseToExisting = (x, y, elementSize, minDistance = 150) => {
+  return activeNFTPositions.some(pos => {
+    const distance = Math.sqrt(Math.pow(x - pos.x, 2) + Math.pow(y - pos.y, 2));
+    return distance < minDistance;
+  });
+};
+
+/**
  * Find a safe position that doesn't overlap with existing NFTs or main content
  */
 const findSafePosition = (elementSize) => {
   const viewportWidth = window.innerWidth;
   const viewportHeight = window.innerHeight;
-  const maxAttempts = 30; // Increased attempts due to more restrictive placement
+  const maxAttempts = 50; // Increased attempts for better distribution
   
   for (let attempt = 0; attempt < maxAttempts; attempt++) {
-    const x = Math.random() * (viewportWidth - elementSize - 40) + 20; // 20px edge buffer
-    const y = Math.random() * (viewportHeight - elementSize - 40) + 20;
+    // Use weighted random distribution to avoid clustering in top-left
+    const x = Math.random() * (viewportWidth - elementSize - 60) + 30; // 30px edge buffer
+    const y = Math.random() * (viewportHeight - elementSize - 60) + 30;
     
     // Check if position is in main content area
     if (isInMainContentArea(x, y, elementSize)) {
+      continue;
+    }
+    
+    // Check if too close to existing NFTs (anti-clustering)
+    if (isTooCloseToExisting(x + elementSize / 2, y + elementSize / 2, elementSize)) {
       continue;
     }
     
@@ -452,7 +468,7 @@ const findSafePosition = (elementSize) => {
   
   // If no safe position found, use edge zones only with more spacing
   const edgeZones = [];
-  const buffer = 50;
+  const buffer = 80; // Increased buffer to prevent clustering
   
   // Top edge (avoiding center)
   if (viewportHeight > 200) {
@@ -660,7 +676,7 @@ const removeNFTElement = (element) => {
 const addRandomNFTBackgrounds = () => {
   const minElements = 4; // Reduced minimum for smoother transitions
   const targetElements = 5; // Reduced target number of NFTs
-  const maxElements = 6; // Reduced maximum to 6 as requested
+  const maxElements = 4; // Reduced maximum to 4-5 as requested
   const currentElements = document.querySelectorAll('.random-nft-bg').length;
   
   console.log(`🎨 Current NFTs: ${currentElements}, Target: ${targetElements}, Max: ${maxElements}`);
@@ -903,7 +919,7 @@ const initRandomNFTBackgrounds = () => {
   // Additional variety timer - slower
   setInterval(() => {
     const currentCount = document.querySelectorAll('.random-nft-bg').length;
-    if (currentCount < 6) { // Add more if we have room (updated to max 6)
+    if (currentCount < 4) { // Add more if we have room (updated to max 4)
       if (Math.random() > 0.6) { // 40% chance every 16 seconds
         addRandomNFTBackgrounds();
       }
@@ -913,7 +929,7 @@ const initRandomNFTBackgrounds = () => {
   // Slower turnover system when at max capacity
   setInterval(() => {
     const currentCount = document.querySelectorAll('.random-nft-bg').length;
-    if (currentCount >= 6) { // When at max capacity
+    if (currentCount >= 4) { // When at max capacity
       forceNFTTurnover(); // Force turnover every 7 seconds
     }
   }, 7000); // Doubled from 3.5 seconds for calmer variety
@@ -945,7 +961,7 @@ const initRandomNFTBackgrounds = () => {
     if (!interactionCooldown) {
       setTimeout(() => {
         const currentCount = document.querySelectorAll('.random-nft-bg').length;
-        if (currentCount < 6) { // Updated threshold to max 6
+        if (currentCount < 4) { // Updated threshold to max 4
           addRandomNFTBackgrounds();
         }
       }, 1000); // Doubled delay from 500ms
