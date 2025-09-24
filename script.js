@@ -443,9 +443,11 @@ const findSafePosition = (elementSize) => {
   const maxAttempts = 50; // Increased attempts for better distribution
   
   for (let attempt = 0; attempt < maxAttempts; attempt++) {
-    // Use weighted random distribution to avoid clustering in top-left
-    const x = Math.random() * (viewportWidth - elementSize - 60) + 30; // 30px edge buffer
-    const y = Math.random() * (viewportHeight - elementSize - 60) + 30;
+    // Avoid corners by biasing towards center
+    const randX = Math.pow(Math.random(), 1.2); // bias away from 0
+    const randY = Math.pow(Math.random(), 1.2);
+    const x = randX * (viewportWidth - elementSize - 60) + 30;
+    const y = randY * (viewportHeight - elementSize - 60) + 30;
     
     // Check if position is in main content area
     if (isInMainContentArea(x, y, elementSize)) {
@@ -674,21 +676,15 @@ const removeNFTElement = (element) => {
  * Add random NFT background elements with increased frequency and count
  */
 const addRandomNFTBackgrounds = () => {
-  const minElements = 4; // Reduced minimum for smoother transitions
-  const targetElements = 5; // Reduced target number of NFTs
-  const maxElements = 4; // Reduced maximum to 4-5 as requested
-  const currentElements = document.querySelectorAll('.random-nft-bg').length;
+  const minElements = 4; // Keep at least 4
+  const targetElements = 4; // Aim for 4 most of the time
+  const maxElements = 5; // Hard cap at 5
+  const currentElements = document.querySelectorAll('.random-nft-bg:not(.fade-out)').length; // count only active
   
   console.log(`🎨 Current NFTs: ${currentElements}, Target: ${targetElements}, Max: ${maxElements}`);
   
   if (currentElements >= maxElements) {
-    console.log('🎨 NFT limit reached, checking for turnover opportunity...');
-    // Instead of completely blocking, occasionally force turnover for variety
-    if (Math.random() > 0.7) { // 30% chance to force turnover
-      console.log('🎨 Forcing immediate turnover for variety');
-      forceNFTTurnover();
-    }
-    return; // Don't add more if we're at the limit
+    return; // Strict cap: never exceed 5
   }
   
   // Calculate how many to add based on current count and targets
@@ -702,11 +698,7 @@ const addRandomNFTBackgrounds = () => {
     elementsToAdd = targetElements - currentElements;
     console.log(`🎨 Below target, adding ${elementsToAdd} NFTs`);
   } else {
-    // More frequently add bonus NFTs for dynamic feel
-    elementsToAdd = Math.random() > 0.5 ? 1 : 0; // 50% chance (increased from 30%)
-    if (elementsToAdd > 0) {
-      console.log('🎨 Adding bonus NFT for variety');
-    }
+    elementsToAdd = 0; // No bonus adds to avoid spikes
   }
   
   // Add multiple NFTs more quickly for higher frequency
@@ -717,7 +709,7 @@ const addRandomNFTBackgrounds = () => {
       // Only proceed if we got a valid unique element
       if (element) {
         document.body.appendChild(element);
-        const newCount = document.querySelectorAll('.random-nft-bg').length;
+        const newCount = document.querySelectorAll('.random-nft-bg:not(.fade-out)').length;
         console.log(`🎨 Added NFT background (${newCount}/${maxElements})`);
         
         // Reduced lifetime for faster natural turnover
@@ -726,41 +718,12 @@ const addRandomNFTBackgrounds = () => {
         const lifetime = baseLifetime + variableLifetime; // 20-45 seconds
         
         setTimeout(() => {
-          // Check if removing this would go below minimum
-          const currentCount = document.querySelectorAll('.random-nft-bg').length;
+          // Chain removal then optional add to maintain cap
+          const currentCount = document.querySelectorAll('.random-nft-bg:not(.fade-out)').length;
           if (currentCount > minElements) {
-            // If we're at high capacity (5-6 images), start a new one before removing this one
-            if (currentCount >= 5) {
-              console.log(`🎨 Overlapping transition: starting new NFT before removing old one`);
-              const newElement = createRandomNFTElement();
-              if (newElement) {
-                document.body.appendChild(newElement);
-                
-                // Set up lifecycle for the new NFT
-                const newLifetime = 20000 + (Math.random() * 25000);
-                setTimeout(() => {
-                  const futureCount = document.querySelectorAll('.random-nft-bg').length;
-                  if (futureCount > minElements) {
-                    removeNFTElement(newElement);
-                  } else {
-                    setTimeout(() => removeNFTElement(newElement), 15000);
-                  }
-                }, newLifetime);
-              }
-              
-              // Remove the old one with a delay for smooth overlap
-              setTimeout(() => {
-                removeNFTElement(element);
-                console.log(`🎨 Completed overlapping transition`);
-              }, 1000);
-            } else {
-              removeNFTElement(element);
-              console.log(`🎨 Removed NFT (${currentCount - 1} remaining)`);
-            }
+            removeNFTElement(element);
           } else {
-            // Delay removal to maintain minimum
-            console.log(`🎨 Delaying removal to maintain minimum count`);
-            setTimeout(() => removeNFTElement(element), 15000); // Extra 15 seconds (increased from 10)
+            setTimeout(() => removeNFTElement(element), 12000);
           }
         }, lifetime);
       } else {
@@ -829,40 +792,26 @@ const resolveOverlaps = () => {
  * Force turnover with overlapping fade transitions
  */
 const forceNFTTurnover = () => {
-  const existingNFTs = document.querySelectorAll('.random-nft-bg');
+  const existingNFTs = document.querySelectorAll('.random-nft-bg:not(.fade-out)');
   if (existingNFTs.length === 0) return;
   
   // Remove a random NFT to make room for a new one
   const randomIndex = Math.floor(Math.random() * existingNFTs.length);
   const nftToRemove = existingNFTs[randomIndex];
   
-  console.log(`🔄 Smooth turnover: overlapping fade transition`);
+  console.log(`🔄 Smooth turnover: remove then add if under cap`);
   
-  // Start the new NFT immediately while the old one begins fading
-  const newElement = createRandomNFTElement();
-  if (newElement) {
-    document.body.appendChild(newElement);
-    console.log(`🎨 New NFT fading in during turnover`);
-    
-    // Set up the lifecycle for the new NFT
-    const baseLifetime = 20000;
-    const variableLifetime = Math.random() * 25000;
-    const lifetime = baseLifetime + variableLifetime;
-    
-    setTimeout(() => {
-      const currentCount = document.querySelectorAll('.random-nft-bg').length;
-      if (currentCount > 4) {
-        removeNFTElement(newElement);
-      } else {
-        setTimeout(() => removeNFTElement(newElement), 15000);
-      }
-    }, lifetime);
-  }
-  
-  // Start removing the old NFT with a slight delay for overlap
+  // First remove, then add if under cap
+  removeNFTElement(nftToRemove);
   setTimeout(() => {
-    removeNFTElement(nftToRemove);
-  }, 500); // Half-second delay for smooth overlap
+    const countAfter = document.querySelectorAll('.random-nft-bg:not(.fade-out)').length;
+    if (countAfter < 4) {
+      const newElement = createRandomNFTElement();
+      if (newElement) {
+        document.body.appendChild(newElement);
+      }
+    }
+  }, 600);
 };
 
 /**
@@ -911,15 +860,16 @@ const initRandomNFTBackgrounds = () => {
     resolveOverlaps();
   }, CONFIG.OVERLAP_RESOLVE_INTERVAL_MS);
   
-  // Slower periodic additions for calmer feel
+  // Slower periodic additions for calmer feel (respect cap)
   setInterval(() => {
-    addRandomNFTBackgrounds();
-  }, 24000); // Every 24 seconds (doubled from 12)
+    const activeCount = document.querySelectorAll('.random-nft-bg:not(.fade-out)').length;
+    if (activeCount < 4) addRandomNFTBackgrounds();
+  }, 24000);
   
   // Additional variety timer - slower
   setInterval(() => {
-    const currentCount = document.querySelectorAll('.random-nft-bg').length;
-    if (currentCount < 4) { // Add more if we have room (updated to max 4)
+    const currentCount = document.querySelectorAll('.random-nft-bg:not(.fade-out)').length;
+    if (currentCount < 4) { // Add more if we have room (cap respected)
       if (Math.random() > 0.6) { // 40% chance every 16 seconds
         addRandomNFTBackgrounds();
       }
@@ -928,9 +878,9 @@ const initRandomNFTBackgrounds = () => {
   
   // Slower turnover system when at max capacity
   setInterval(() => {
-    const currentCount = document.querySelectorAll('.random-nft-bg').length;
-    if (currentCount >= 4) { // When at max capacity
-      forceNFTTurnover(); // Force turnover every 7 seconds
+    const currentCount = document.querySelectorAll('.random-nft-bg:not(.fade-out)').length;
+    if (currentCount >= 5) {
+      forceNFTTurnover();
     }
   }, 7000); // Doubled from 3.5 seconds for calmer variety
   
@@ -960,8 +910,8 @@ const initRandomNFTBackgrounds = () => {
   document.addEventListener('click', () => {
     if (!interactionCooldown) {
       setTimeout(() => {
-        const currentCount = document.querySelectorAll('.random-nft-bg').length;
-        if (currentCount < 4) { // Updated threshold to max 4
+        const currentCount = document.querySelectorAll('.random-nft-bg:not(.fade-out)').length;
+        if (currentCount < 4) { // Threshold with active count
           addRandomNFTBackgrounds();
         }
       }, 1000); // Doubled delay from 500ms
