@@ -68,6 +68,9 @@ body {
   
   /* Custom cursor implementation */
   cursor: url('assets/cursors/cursor_small.png'), auto;
+  /* Remove click highlight artifacts on WebKit */
+  -webkit-tap-highlight-color: transparent;
+  overscroll-behavior: none;
 }
 
 /* Animated Border Shadow */
@@ -165,6 +168,11 @@ body::after {
   max-height: 28vh;
   object-fit: contain;
   margin: 0 auto var(--spacing-md) auto;
+  /* Prevent any focus/selection artifacts around the image */
+  outline: none;
+  user-select: none;
+  -webkit-user-drag: none;
+  pointer-events: none;
 }
 
 @media (max-width: 768px) {
@@ -681,6 +689,14 @@ body::after {
 .nft-btn:focus,
 .artist-btn:focus,
 .depot-btn:focus {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+/* Also ensure links never draw default focus outlines that appear as side lines */
+a:focus,
+a:focus-visible,
+a:active {
   outline: none !important;
   box-shadow: none !important;
 }
