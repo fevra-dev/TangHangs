@@ -599,10 +599,10 @@ body::after {
     gap: var(--spacing-sm);
   }
 
-  /* Stronger upward nudge on small phones */
+  /* Nudge banner down ~5% on small phones */
   .brand-section {
-    transform: translateY(-10vh);
-    transform: translateY(-10svh);
+    transform: translateY(5vh);
+    transform: translateY(5svh);
   }
   
   :root {
