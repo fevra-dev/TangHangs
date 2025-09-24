@@ -325,14 +325,15 @@ const setupAccessibility = () => {
 
 /**
  * Generate list of meme image filenames from the memes folder
- * Uses a curated list of meme images from your collection
+ * Uses all meme images from your collection (image00001.png to image00082.png)
  */
 const generateNFTFilenames = () => {
-  // List of meme filenames from the memes folder
-  const memeFilenames = [
-    'face.png',
-    // Add more meme filenames as needed
-  ];
+  // Generate all meme filenames from image00001.png to image00082.png
+  const memeFilenames = [];
+  for (let i = 1; i <= 82; i++) {
+    const filename = `image${String(i).padStart(5, '0')}.png`;
+    memeFilenames.push(filename);
+  }
   
   return memeFilenames;
 };
@@ -971,10 +972,10 @@ const initRandomNFTBackgrounds = () => {
  */
 const preloadGifAnimations = () => {
   const gifImages = [
-    'token.gif',
-    'X.gif', 
-    'radio.gif',
-    'meme_depot.gif'
+    'assets/images/token.gif',
+    'assets/images/X.gif', 
+    'assets/images/radio.gif',
+    'assets/images/meme_depot.gif'
   ];
   
   console.log('🎬 Enhanced GIF preloading started...');

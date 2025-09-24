@@ -1,145 +1,100 @@
-# Tang Collection - Landing Page
+# Tang Collection Landing Page
 
-A simple, clean, centered landing page for the Tang Collection with fun circular buttons and perfect mobile/desktop compatibility.
+A minimalist, visually appealing landing page for the Tang NFT collection, featuring memes and custom animations.
 
-## 🎨 Design Features
+## Features
 
-- **Simple & Clean**: Centered, non-scrollable design focused on essential links
-- **Fun Circular Buttons**: Colorful, interactive circular buttons with hover effects
-- **Custom Color Scheme**: Features `#00ffea` as the main background color
-- **Custom Cursor**: Unique cursor implementation for enhanced user experience
-- **Perfect Responsive**: Works flawlessly on both mobile and desktop
-- **Accessibility**: WCAG compliant with proper ARIA labels and keyboard navigation
+- **Clean Design**: Minimalist layout with centered content
+- **Custom Cursor**: Unique cursor implementation using `cursor_small.png`
+- **Interactive Buttons**: Circular buttons with hover animations
+- **GIF Animations**: Static PNG to animated GIF transitions on hover
+- **Random Meme Backgrounds**: Dynamic meme images with 20% transparency
+- **Responsive Design**: Optimized for desktop and mobile
+- **Loading Screen**: Professional loading animation with `loading2.gif`
+- **Professional Structure**: Organized folder structure for scalability
 
-## 🚀 Technical Stack
+## File Structure
 
-- **HTML5**: Semantic markup with proper accessibility attributes
-- **CSS3**: Modern CSS with custom properties, grid, flexbox, and animations
-- **Vanilla JavaScript**: Clean, modular JavaScript with React-ready structure
-- **Typography**: DM Sans for body text and Lora for headings
-
-## 📁 Project Structure
-
-```text
+```
 Tang_Landing/
-├── index.html          # Main HTML file with semantic structure
-├── styles.css          # Complete CSS styling with custom cursor
-├── script.js           # Interactive JavaScript with modular components
-├── favicon.svg         # Custom SVG favicon
-└── README.md           # Project documentation
+├── index.html              # Main HTML structure
+├── styles.css              # All styling and animations
+├── script.js               # JavaScript functionality
+├── README.md               # Project documentation
+├── .gitignore              # Git ignore rules
+├── assets/                 # Organized asset folders
+│   ├── images/             # All button and UI images
+│   │   ├── header.png      # Main banner image
+│   │   ├── loading2.gif    # Loading screen animation
+│   │   ├── token.png/gif   # Token button
+│   │   ├── X.png/gif       # NFT button (X logo)
+│   │   ├── radio.png/gif   # Artist button
+│   │   └── meme_depot.png/gif # Depot button
+│   ├── cursors/            # Cursor assets
+│   │   ├── cursor.png      # Original cursor (1366x1366px)
+│   │   └── cursor_small.png # Optimized cursor (32x32px)
+│   └── icons/              # Site icons
+│       └── favicon.svg     # Site favicon
+├── memes/                  # Meme images for backgrounds
+│   ├── image00001.png
+│   ├── image00002.png
+│   └── ... (82 total images)
+├── scripts/                # Utility scripts
+│   ├── download_nft_images.py # NFT image downloader
+│   └── check_progress.sh   # Download progress checker
+└── docs/                   # Documentation and data
+    └── collection.json     # NFT collection metadata
 ```
 
-## 🛠️ Features
+## Button Links
 
-### Centered Layout
+- **Token**: https://x.com/MangTheTang
+- **NFT**: https://x.com/TangHangs  
+- **Artist**: https://x.com/0xRadi0
+- **Depot**: https://memedepot.com/u/mang
 
-- Fixed viewport height (no scrolling)
-- Perfect vertical and horizontal centering
-- Clean typography with Tang Collection branding
+## Technical Details
 
-### Circular Link Buttons
+- **Font**: Impact (system font)
+- **Background**: #00ffea (cyan)
+- **Custom Cursor**: 32x32px PNG
+- **GIF Preloading**: Prevents flash on hover
+- **Collision Detection**: Prevents overlapping backgrounds
+- **Duplicate Prevention**: No duplicate images displayed
+- **Smooth Animations**: 15-second fade-outs, 3-second fade-ins
+- **Professional Structure**: Organized assets for maintainability
 
-- **Token**: Links to @MangTheTang on Twitter (🪙)
-- **NFT**: Links to @TangHangs on Twitter (🖼️)
-- **Artist**: Links to @0xRadi0 on Twitter (🎨)
-- **Depot**: Links to Mang's profile on Meme Depot (🏪)
+## Setup
 
-### Interactive Elements
+1. Clone the repository: `git clone git@github.com:fevra420/TangHangs.git`
+2. Navigate to the project directory: `cd TangHangs`
+3. Ensure `memes/` folder contains all 82 images
+4. Open `index.html` in a web browser
+5. The page will automatically load with preloaded animations
 
-- Custom cursor implementation
-- Ripple effects on button clicks
-- Smooth hover animations and scaling
-- Colorful gradients for each button type
-- Touch-friendly mobile interactions
+## Development
 
-## 🎯 Framework Migration Ready
+- **Meme Images**: Add new images to `memes/` folder (image00083.png, etc.)
+- **Button Images**: Update `assets/images/` for new button designs
+- **Styling**: Modify `styles.css` for design changes
+- **Functionality**: Update `script.js` for new features
 
-The codebase is structured for easy migration to React:
+## Browser Support
 
-- **Component-based architecture**: Each major section is organized as a component module
-- **Modular JavaScript**: Clear separation of concerns with reusable functions
-- **CSS Custom Properties**: Easy theming and style management
-- **Semantic HTML**: Component-ready markup structure
-- **Event handling**: Clean event delegation patterns
+- Modern browsers with CSS3 and ES6 support
+- Mobile responsive design
+- Custom cursor support (fallback to default)
 
-## 📱 Browser Support
+## Performance
 
-- Chrome (latest)
-- Firefox (latest)
-- Safari (latest)
-- Edge (latest)
-- Mobile browsers (iOS Safari, Chrome Mobile)
+- Optimized image loading with preloading
+- Efficient collision detection algorithms
+- Smooth 60fps animations
+- Minimal JavaScript footprint
+- Professional asset organization
 
-## 🔧 Setup & Usage
+## GitHub Repository
 
-1. **Clone or download** the project files
-2. **Open `index.html`** in a web browser
-3. **No build process required** - runs directly in the browser
-
-For development:
-
-```bash
-# Serve locally (optional)
-python -m http.server 8000
-# or
-npx serve .
-```
-
-## 🎨 Customization
-
-### Colors
-
-Edit CSS custom properties in `styles.css`:
-
-```css
-:root {
-  --primary-bg: #00ffea;     /* Main background */
-  --primary-text: #000000;   /* Text color */
-  --accent-color: #ffffff;   /* Accent highlights */
-}
-```
-
-### Typography
-
-Fonts are loaded from Google Fonts. To change:
-
-1. Update the Google Fonts link in `index.html`
-2. Modify font variables in `styles.css`
-
-### Content
-
-- **Memes**: Update the meme grid in `index.html`
-- **Links**: Modify footer links for actual NFT marketplaces
-- **Copy**: Update hero text and descriptions
-
-## 🔮 Future Enhancements
-
-- **React Migration**: Component structure is ready for React
-- **Web3 Integration**: Wallet connection and NFT interactions
-- **API Integration**: Dynamic content loading
-- **PWA Features**: Service worker and offline functionality
-- **Analytics**: User interaction tracking
-- **SEO Optimization**: Meta tags and structured data
-
-## 📊 Performance
-
-- **Lighthouse Score**: Optimized for 90+ scores
-- **Core Web Vitals**: Meets Google's performance standards
-- **Image Optimization**: Lazy loading and proper sizing
-- **CSS/JS Optimization**: Minification ready
-
-## 🎯 Accessibility
-
-- ARIA labels and roles
-- Keyboard navigation support
-- Screen reader compatibility
-- High contrast mode support
-- Reduced motion preferences
-
-## 📄 License
-
-This project is created as a foundation template. Customize freely for your NFT collection needs.
-
----
-
-**Ready to launch your NFT collection landing page!** 🚀
+- **Repository**: https://github.com/fevra420/TangHangs
+- **Owner**: fevra420
+- **Clone URL**: `git@github.com:fevra420/TangHangs.git`

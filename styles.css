@@ -67,7 +67,7 @@ body {
   position: relative;
   
   /* Custom cursor implementation */
-  cursor: url('cursor_small.png'), auto;
+  cursor: url('assets/cursors/cursor_small.png'), auto;
 }
 
 /* Animated Border Shadow */
@@ -243,7 +243,7 @@ body::after {
 .token-btn {
   width: var(--button-size);
   height: var(--button-size);
-  background-image: url('token.png') !important;
+  background-image: url('assets/images/token.png') !important;
   background-size: contain !important;
   background-repeat: no-repeat !important;
   background-position: center !important;
@@ -257,7 +257,7 @@ body::after {
 
 .token-btn:hover,
 .token-btn:focus {
-  background-image: url('token.gif') !important;
+  background-image: url('assets/images/token.gif') !important;
   background-color: transparent !important;
   box-shadow: none !important;
   transform: translateY(-4px) scale(1.05);
@@ -271,7 +271,7 @@ body::after {
 .nft-btn {
   width: var(--button-size);
   height: var(--button-size);
-  background-image: url('X.png') !important;
+  background-image: url('assets/images/X.png') !important;
   background-size: contain !important;
   background-repeat: no-repeat !important;
   background-position: center !important;
@@ -285,7 +285,7 @@ body::after {
 
 .nft-btn:hover,
 .nft-btn:focus {
-  background-image: url('X.gif') !important;
+  background-image: url('assets/images/X.gif') !important;
   background-color: transparent !important;
   box-shadow: none !important;
   transform: translateY(-4px) scale(1.05);
@@ -299,7 +299,7 @@ body::after {
 .artist-btn {
   width: var(--button-size);
   height: var(--button-size);
-  background-image: url('radio.png') !important;
+  background-image: url('assets/images/radio.png') !important;
   background-size: contain !important;
   background-repeat: no-repeat !important;
   background-position: center !important;
@@ -313,7 +313,7 @@ body::after {
 
 .artist-btn:hover,
 .artist-btn:focus {
-  background-image: url('radio.gif') !important;
+  background-image: url('assets/images/radio.gif') !important;
   background-color: transparent !important;
   box-shadow: none !important;
   transform: translateY(-4px) scale(1.05);
@@ -327,7 +327,7 @@ body::after {
 .depot-btn {
   width: var(--button-size);
   height: var(--button-size);
-  background-image: url('meme_depot.png') !important;
+  background-image: url('assets/images/meme_depot.png') !important;
   background-size: contain !important;
   background-repeat: no-repeat !important;
   background-position: center !important;
@@ -341,7 +341,7 @@ body::after {
 
 .depot-btn:hover,
 .depot-btn:focus {
-  background-image: url('meme_depot.gif') !important;
+  background-image: url('assets/images/meme_depot.gif') !important;
   background-color: transparent !important;
   box-shadow: none !important;
   transform: translateY(-4px) scale(1.05);
