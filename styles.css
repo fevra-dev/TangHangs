@@ -174,9 +174,15 @@ body::after {
     margin-bottom: var(--spacing-sm);
   }
 
-  /* Nudge banner upward on mobile without moving buttons */
+  /* Nudge banner higher on mobile (use modern viewport units with fallback) */
   .brand-section {
-    transform: translateY(-4vh);
+    transform: translateY(-6vh);
+    transform: translateY(-6svh);
+  }
+
+  /* Keep buttons fixed; no vertical transform */
+  .links-section {
+    transform: none;
   }
 }
 
@@ -585,9 +591,10 @@ body::after {
     gap: var(--spacing-sm);
   }
 
-  /* Slightly stronger upward nudge on small phones */
+  /* Stronger upward nudge on small phones */
   .brand-section {
-    transform: translateY(-6vh);
+    transform: translateY(-10vh);
+    transform: translateY(-10svh);
   }
   
   :root {
