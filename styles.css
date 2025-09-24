@@ -657,10 +657,15 @@ body::after {
   pointer-events: all !important;
 }
 
-/* Focus styles for keyboard navigation */
-.circular-btn:focus {
-  outline: 3px solid var(--primary-text);
-  outline-offset: 4px;
+/* Focus styles for keyboard navigation - removed black outline */
+.circular-btn:focus,
+.circular-btn:focus-visible,
+.token-btn:focus,
+.nft-btn:focus,
+.artist-btn:focus,
+.depot-btn:focus {
+  outline: none !important;
+  box-shadow: none !important;
 }
 
 /* Reduce motion for users who prefer it */
