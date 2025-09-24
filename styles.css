@@ -173,6 +173,11 @@ body::after {
     max-height: 22vh;
     margin-bottom: var(--spacing-sm);
   }
+
+  /* Nudge banner upward on mobile without moving buttons */
+  .brand-section {
+    transform: translateY(-4vh);
+  }
 }
 
 /* ===============================
@@ -578,6 +583,11 @@ body::after {
   .links-section {
     max-width: 240px;
     gap: var(--spacing-sm);
+  }
+
+  /* Slightly stronger upward nudge on small phones */
+  .brand-section {
+    transform: translateY(-6vh);
   }
   
   :root {
