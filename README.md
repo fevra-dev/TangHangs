@@ -51,7 +51,7 @@ Tang_Landing/
 - **Token**: https://x.com/MangTheTang
 - **NFT**: https://x.com/TangHangs  
 - **Artist**: https://x.com/0xRadi0
-- **Depot**: https://memedepot.com/u/mang
+- **Depot**: https://memedepot.com/d/af4epa-my-depot
 
 ## Technical Details
 
@@ -66,7 +66,7 @@ Tang_Landing/
 
 ## Setup
 
-1. Clone the repository: `git clone git@github.com:fevra420/TangHangs.git`
+1. Clone the repository: `git clone git@github.com/fevra-dev/TangHangs.git`
 2. Navigate to the project directory: `cd TangHangs`
 3. Ensure `memes/` folder contains all 82 images
 4. Open `index.html` in a web browser
@@ -95,6 +95,6 @@ Tang_Landing/
 
 ## GitHub Repository
 
-- **Repository**: https://github.com/fevra420/TangHangs
-- **Owner**: fevra420
-- **Clone URL**: `git@github.com:fevra420/TangHangs.git`
+- **Repository**: https://github.com/fevra-dev/TangHangs
+- **Owner**: fevra-dev
+- **Clone URL**: `git@github.com:fevra-dev/TangHangs.git`
