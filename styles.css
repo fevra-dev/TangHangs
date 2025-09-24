@@ -635,6 +635,28 @@ body::after {
    ACCESSIBILITY IMPROVEMENTS
    =============================== */
 
+/* Skip link - hidden by default, only visible on focus */
+.skip-link {
+  position: absolute !important;
+  top: -100px !important;
+  left: 6px !important;
+  background: var(--primary-text) !important;
+  color: var(--primary-bg) !important;
+  padding: 8px !important;
+  text-decoration: none !important;
+  border-radius: 4px !important;
+  z-index: 1000 !important;
+  transition: top 0.3s, opacity 0.3s !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+.skip-link:focus {
+  top: 6px !important;
+  opacity: 1 !important;
+  pointer-events: all !important;
+}
+
 /* Focus styles for keyboard navigation */
 .circular-btn:focus {
   outline: 3px solid var(--primary-text);

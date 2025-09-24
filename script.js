@@ -283,7 +283,7 @@ const setupAccessibility = () => {
   skipLink.className = 'skip-link';
   skipLink.style.cssText = `
     position: absolute;
-    top: -40px;
+    top: -100px;
     left: 6px;
     background: var(--primary-text);
     color: var(--primary-bg);
@@ -292,14 +292,20 @@ const setupAccessibility = () => {
     border-radius: 4px;
     z-index: 1000;
     transition: top 0.3s;
+    opacity: 0;
+    pointer-events: none;
   `;
   
   skipLink.addEventListener('focus', () => {
     skipLink.style.top = '6px';
+    skipLink.style.opacity = '1';
+    skipLink.style.pointerEvents = 'all';
   });
   
   skipLink.addEventListener('blur', () => {
-    skipLink.style.top = '-40px';
+    skipLink.style.top = '-100px';
+    skipLink.style.opacity = '0';
+    skipLink.style.pointerEvents = 'none';
   });
   
   document.body.insertBefore(skipLink, document.body.firstChild);
